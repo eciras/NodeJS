@@ -28,33 +28,52 @@ app.set('views',__dirname + '/main-page');
 
 app.engine('hbs', expressHandlebars.engine({
     extname: 'hbs',
-    layoutsDir: __dirname + '/main-page',
+    layoutsDir: __dirname + '/main-page/layout',
     defaultLayout: 'index'
 }));
 
 app.set('view engine', 'hbs');
 
-app.get('/', (req, res) => {
-    res.render('index');
-});
+// app.get('/', (req, res) => {
+//     res.render('simple-forma');
+// });
 
-app.post('/submit', upload.single('failas'), (req, res) => {
-    // let category = false;
-    // if(req.body.category == 'private')
-    //     category = true
-    //     if(req.body.category == 'public')
-    //     category = true
-    //     if(req.body.category == 'collobaration')
-    //     category = true
-        res.render('index');
-  });
+// app.post('/submit', upload.single('failas'), (req, res) => {
+//     // let category = false;
+//     // if(req.body.category == 'private')
+//     //     category = true
+//     //     if(req.body.category == 'public')
+//     //     category = true
+//     //     if(req.body.category == 'collobaration')
+//     //     category = true
+//         res.render('simple-forma');+
+//   });
 
-  app.post('/simple-forma-submit', (req, res) => {
-      console.log(req.body)
+//   app.post('/simple-forma-submit', upload.single('failas'), (req, res) => {
+//     let data = JSON.stringify(req.body);
+//     console.log(data);
+//     res.redirect('/simple-forma');
+//   })
+
+//   app.get('/simple-forma', (req, res) => {
+//       res.render('simple-forma')
+//   })
+
+  app.post('/formsubmit', upload.single('failas'), (req, res) => {
+      let photo = '/uploads/' + req.file.filename;
+      req.body.photo = photo;
+      let data = JSON.stringify(req.body);
+      let target = path.join(__dirname, 'database', 'formphoto.json');
+
+        fs.writeFile(target, data, (err) => {
+            if(err) throw err;
+            console.log('JSON file saved')
+        })
+
+    //   res.redirect('/forma')
   })
-
-  app.get('/simple-forma', (req, res) => {
-      res.render('simple-forma')
+  app.get('/forma', (req, res) => {
+      res.render('forma')
   })
 
 app.listen(3000);
