@@ -1,8 +1,8 @@
-const fs                = require('fs');
-const path              = require('path');
-const express           = require('express');
+const fs = require('fs');
+const path = require('path');
+const express = require('express');
 const expressHandlebars = require('express-handlebars');
-const multer            = require('multer');
+const multer = require('multer');
 
 const storage = multer.diskStorage({
     destination: function (req, file, callback) {
@@ -15,6 +15,8 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 const app = express();
 
+const target = path.join(__dirname, 'database', 'formphoto.json');
+
 app.use(
     express.urlencoded({
         extended: false
@@ -24,7 +26,7 @@ app.use(
 app.use('/public', express.static('public'));
 app.use('/uploads', express.static('uploads'));
 
-app.set('views',__dirname + '/main-page');
+app.set('views', __dirname + '/main-page');
 
 app.engine('hbs', expressHandlebars.engine({
     extname: 'hbs',
@@ -59,21 +61,37 @@ app.set('view engine', 'hbs');
 //       res.render('simple-forma')
 //   })
 
-  app.post('/formsubmit', upload.single('failas'), (req, res) => {
-      let photo = '/uploads/' + req.file.filename;
-      req.body.photo = photo;
-      let data = JSON.stringify(req.body);
-      let target = path.join(__dirname, 'database', 'formphoto.json');
+app.get('/', (req, res) => {
+    fs.readFile(target, 'UTF-8', (err, data) => {
+        let obj = JSON.parse(data)
+        console.log(obj);
+    })
 
-        fs.writeFile(target, data, (err) => {
-            if(err) throw err;
-            console.log('JSON file saved')
-        })
+    res.render('pradinis')
+})
 
-    //   res.redirect('/forma')
-  })
-  app.get('/forma', (req, res) => {
-      res.render('forma')
-  })
+
+app.get('/forma', (req, res) => {
+    res.render('forma')
+})
+
+app.post('/formsubmit', upload.single('failas'), (req, res) => {
+    let photo = '/uploads/' + req.file.filename;
+    req.body.photo = photo;
+    let data = JSON.stringify(req.body);
+
+
+    fs.writeFile(target, data, (err) => {
+        if (err) throw err;
+        console.log('JSON file saved')
+    })
+
+    res.redirect('/forma')
+})
+
+
+app.get('/info', (req, res) => {
+    res.json({message: 'Sėkmingai prisijungėte prie NodeJs serverio'})
+})
 
 app.listen(3000);

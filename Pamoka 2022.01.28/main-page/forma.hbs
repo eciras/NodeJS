@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    {{#if message}}
+    <div class="message">{{message}}</div>
+    {{/if}}
+    <form method="POST" action="/forma2" enctype="multipart/form-data">
+        <label for="name">El. pašto adresas:</label>
+        <input type="email" name="email" /> <br />
+        <label for="name">Slaptažodis:</label>
+        <input type="password" name="password" />
+<select name="darzove">
+        <option value="1">Agurkai</option>
+        <option value="2">Pomidorai</option>
+        <option value="3">Bananai</option>
+</select>
+
+<div>
+    <label><input type="checkbox" name="test" value="12" />Test1</label>
+    <label><input type="checkbox" name="test" value="10" />Test2</label>
+    <label><input type="checkbox" name="test" value="20" />Test3</label>
+    <label><input type="checkbox" name="test" value="1" />Test4</label>
+</div>
+
+<div>
+<label><input type="checkbox" name="test" value="12" />Radio1</label>
+<label><input type="checkbox" name="test" value="11" />Radio2</label>
+<label><input type="checkbox" name="test" value="120" />Radio3</label>
+
+</div>
+<input type="file" name="failas" />
+
+
+        <button type="submit">Siųsti</button>
+
+
+    </form>
+</body>
+</html>
