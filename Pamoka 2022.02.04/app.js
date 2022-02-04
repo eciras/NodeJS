@@ -23,7 +23,6 @@ function regexAll(a) {
     return a.replace(/[aeiyou]/gi, '');
   }
 
-
 const regex1 = regexAll(movie1)
 const regex2 = regexAll(movie2)
 const regex3 = regexAll(movie3)
