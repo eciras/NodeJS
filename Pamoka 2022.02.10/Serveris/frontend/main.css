@@ -1,0 +1,59 @@
+*{
+    margin:0;
+    padding: 0
+}
+
+#card {
+    width: 30em;
+    height: 20em;
+    background-color: rgb(233, 233, 233);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+}
+
+.card{
+    display: flex;
+    flex-direction: row; 
+    align-items: left;
+    justify-content: left;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    margin-left: 15px;
+}
+
+
+.card__name {
+    color: rgb(44, 44, 44);
+  }
+.card__role {
+    color: rgb(133, 133, 133);
+  }
+
+h1, h2{
+    margin: 0;
+    padding:0;
+    text-transform: uppercase;
+}
+
+.card__body {
+    display: flex;
+    flex-direction: row;
+    margin-left: 15px;
+}
+
+.card__body--text{
+    display: flex;
+    flex-direction: column;
+    line-height: 30px;
+    justify-content: space-around;
+    height: 100px;
+    color: rgb(117, 117, 117);
+}
+
+
+
+
+
